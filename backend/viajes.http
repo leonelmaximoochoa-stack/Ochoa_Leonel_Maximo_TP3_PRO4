@@ -1,0 +1,75 @@
+@url = http://localhost:3000
+
+### Login
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "leonel3@test.com",
+  "password": "hola1234"
+}
+
+###
+@token = {{login.response.body.token}}
+
+### Listar viajes
+GET {{url}}/viajes
+Authorization: Bearer {{token}}
+
+### Crear viaje (usar ids reales de vehiculo y conductor)
+# @name crear
+POST {{url}}/viajes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "vehiculo_id": 1,
+  "conductor_id": 1,
+  "fecha_salida": "2026-03-10T08:00:00",
+  "fecha_llegada": "2026-03-10T14:30:00",
+  "origen": "Buenos Aires",
+  "destino": "Rosario",
+  "kilometros": 300,
+  "observaciones": "Carga parcial"
+}
+
+### Detalle
+GET {{url}}/viajes/1
+Authorization: Bearer {{token}}
+
+### Historial por vehiculo
+GET {{url}}/vehiculos/1/viajes
+Authorization: Bearer {{token}}
+
+### Total km por vehiculo
+GET {{url}}/vehiculos/1/km
+Authorization: Bearer {{token}}
+
+### Historial por conductor
+GET {{url}}/conductores/1/viajes
+Authorization: Bearer {{token}}
+
+### Total km por conductor
+GET {{url}}/conductores/1/km
+Authorization: Bearer {{token}}
+
+### Actualizar viaje
+PUT {{url}}/viajes/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "vehiculo_id": 1,
+  "conductor_id": 1,
+  "fecha_salida": "2026-03-10T08:00:00",
+  "fecha_llegada": "2026-03-10T15:00:00",
+  "origen": "Buenos Aires",
+  "destino": "Rosario",
+  "kilometros": 310,
+  "observaciones": "Actualizado"
+}
+
+### Borrar viaje
+DELETE {{url}}/viajes/1
+Authorization: Bearer {{token}}
