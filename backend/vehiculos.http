@@ -1,0 +1,57 @@
+@url = http://localhost:3000
+
+### Login (para obtener token)
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "leonel3@test.com",
+  "password": "hola1234"
+}
+
+###
+@token = {{login.response.body.token}}
+
+### Listar vehiculos
+GET {{url}}/vehiculos
+Authorization: Bearer {{token}}
+
+### Listar con filtro
+GET {{url}}/vehiculos?marca=Toy&anioMin=2015
+Authorization: Bearer {{token}}
+
+### Crear vehiculo
+# @name crear
+POST {{url}}/vehiculos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "marca": "Toyota",
+  "modelo": "Hilux",
+  "patente": "AB123CD",
+  "anio": 2020,
+  "capacidad_carga": 1000
+}
+
+### Detalle
+GET {{url}}/vehiculos/1
+Authorization: Bearer {{token}}
+
+### Actualizar
+PUT {{url}}/vehiculos/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "marca": "Toyota",
+  "modelo": "Hilux",
+  "patente": "AB123CD",
+  "anio": 2021,
+  "capacidad_carga": 1200
+}
+
+### Borrar
+DELETE {{url}}/vehiculos/1
+Authorization: Bearer {{token}}
