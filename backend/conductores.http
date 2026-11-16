@@ -1,0 +1,59 @@
+@url = http://localhost:3000
+
+### Login (para obtener token)
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "leonel3@test.com",
+  "password": "hola1234"
+}
+
+###
+@token = {{login.response.body.token}}
+
+### Listar conductores
+GET {{url}}/conductores
+Authorization: Bearer {{token}}
+
+### Listar con filtro
+GET {{url}}/conductores?apellido=Ocho&documento=12345678
+Authorization: Bearer {{token}}
+
+### Crear conductor
+# @name crear
+POST {{url}}/conductores
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Juan",
+  "apellido": "Perez",
+  "documento": "30111222",
+  "numero_licencia": "B-998877",
+  "licencia_alta": "2020-01-15",
+  "licencia_vencimiento": "2030-01-15"
+}
+
+### Detalle
+GET {{url}}/conductores/1
+Authorization: Bearer {{token}}
+
+### Actualizar
+PUT {{url}}/conductores/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Juan",
+  "apellido": "Perez",
+  "documento": "30111222",
+  "numero_licencia": "B-998877",
+  "licencia_alta": "2020-01-15",
+  "licencia_vencimiento": "2031-06-01"
+}
+
+### Borrar
+DELETE {{url}}/conductores/1
+Authorization: Bearer {{token}}
