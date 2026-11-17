@@ -22,4 +22,37 @@ Aplicacion para registrar vehiculos, conductores y viajes de una empresa de tran
 
 ## Como ejecutar
 
-Instrucciones de instalacion y arranque se completan al finalizar el desarrollo del backend y frontend.
+### 1) Base de datos
+
+1. Abrir MySQL Workbench
+2. Ejecutar el archivo `backend/schema.sql`
+
+### 2) Backend
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+La API queda en `http://localhost:3000`  
+(usa `npm run dev` para cargar el `.env` automaticamente)
+
+### 3) Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Abrir en el navegador la URL que muestra Vite (ej. `http://127.0.0.1:5173`).
+
+## Endpoints principales
+
+- `POST /auth/register` y `POST /auth/login`
+- CRUD `/vehiculos`, `/conductores`, `/viajes` (requieren Bearer token)
+- Historial: `GET /vehiculos/:id/viajes`, `GET /conductores/:id/viajes`
+- Totales km: `GET /vehiculos/:id/km`, `GET /conductores/:id/km`
+
+Hay archivos `.http` en `backend/` para probar la API.
